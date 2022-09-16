@@ -1,14 +1,15 @@
 package com.example.demo
 
-import javax.persistence.*
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Column
+import org.springframework.data.relational.core.mapping.Table
 
-@Entity
 @Table(name = "test")
 class Test(
-    @Column(name = "test")
+    @Column("test")
     val test: String,
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column("id")
     var id: Long? = null
 )

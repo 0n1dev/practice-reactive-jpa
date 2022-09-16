@@ -12,7 +12,7 @@ class TestController(
 ) {
 
     @GetMapping
-    fun test() {
-        testService.test()
+    fun test(): Mono<Test> {
+        return testService.test()
     }
 }

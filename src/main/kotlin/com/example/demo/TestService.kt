@@ -1,19 +1,20 @@
 package com.example.demo
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import reactor.core.publisher.Mono
-import reactor.core.scheduler.Schedulers
 
 @Service
 class TestService(
     private val testRepository: TestRepository
 ) {
 
-    fun test() {
+    @Transactional
+    fun test(): Mono<Test> {
         val test = Test(
             "abc"
         )
 
-        testRepository.save(test)
+        return testRepository.save(test)
     }
 }
