@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Table
 @Table(name = "test")
 class Test(
     @Column("test")
-    val test: String,
+    var test: String,
 
     @Id
     @Column("id")

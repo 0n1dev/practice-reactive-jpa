@@ -1,6 +1,6 @@
 package com.example.demo
 
-import org.springframework.data.repository.reactive.ReactiveCrudRepository
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
-interface TestRepository : ReactiveCrudRepository<Test, Long> {
+interface TestRepository : CoroutineCrudRepository<Test, Long> {
 }

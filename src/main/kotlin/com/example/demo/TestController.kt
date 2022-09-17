@@ -12,7 +12,7 @@ class TestController(
 ) {
 
     @GetMapping
-    fun test(): Mono<Test> {
+    suspend fun test(): Test {
         return testService.test()
     }
 }

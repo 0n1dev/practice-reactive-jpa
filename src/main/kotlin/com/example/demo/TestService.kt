@@ -10,11 +10,15 @@ class TestService(
 ) {
 
     @Transactional
-    fun test(): Mono<Test> {
+    suspend fun test(): Test {
         val test = Test(
-            "abc"
+            "테스트"
         )
 
-        return testRepository.save(test)
+        val savedTest = testRepository.save(test)
+
+        savedTest.test = "아니야 바꿀꺼"
+
+        return testRepository.save(savedTest)
     }
 }
