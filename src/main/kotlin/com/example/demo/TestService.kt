@@ -18,7 +18,7 @@ class TestService(
     }
 
     suspend fun getTests(): MutableList<Test>? {
-        return testRepository.findAll()?.awaitSuspending();
+        return testRepository.findAll()?.awaitSuspending()
     }
 
     suspend fun getTest(id: Long): Test {

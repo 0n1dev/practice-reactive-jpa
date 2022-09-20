@@ -46,7 +46,7 @@ class TestRepository(
             session.find(Test::class.java, id)
                 .onItem()
                 .ifNull()
-                .failWith { IllegalArgumentException() }
+                .failWith { RuntimeException() }
         }
     }
 
