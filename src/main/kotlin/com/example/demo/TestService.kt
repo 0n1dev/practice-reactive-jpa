@@ -1,24 +1,39 @@
 package com.example.demo
 
+import kotlinx.coroutines.flow.toList
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
-import reactor.core.publisher.Mono
 
 @Service
 class TestService(
     private val testRepository: TestRepository
 ) {
 
-    @Transactional
-    suspend fun test(): Test {
+    suspend fun createTest(): Test {
         val test = Test(
             "테스트"
         )
 
-        val savedTest = testRepository.save(test)
+        return testRepository.save(test)
+    }
 
-        savedTest.test = "아니야 바꿀꺼"
+    suspend fun getTests(): List<Test> {
+        return testRepository.findAll().toList()
+    }
 
-        return testRepository.save(savedTest)
+    suspend fun getTest(id: Long): Test {
+        return testRepository.findById(id) ?: kotlin.run { throw RuntimeException() }
+    }
+
+    suspend fun deleteTest(id: Long) {
+        testRepository.deleteById(id)
+    }
+
+    suspend fun updateTest(id: Long): Test {
+        val test = Test(
+            "테스트2",
+            id
+        )
+
+        return testRepository.save(test)
     }
 }
