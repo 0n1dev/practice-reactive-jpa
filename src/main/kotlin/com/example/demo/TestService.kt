@@ -1,24 +1,40 @@
 package com.example.demo
 
+import io.smallrye.mutiny.coroutines.awaitSuspending
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
-import reactor.core.publisher.Mono
+import javax.transaction.Transactional
 
 @Service
 class TestService(
     private val testRepository: TestRepository
 ) {
 
-    @Transactional
-    suspend fun test(): Test {
+    suspend fun createTest(): Test {
         val test = Test(
             "테스트"
         )
 
-        val savedTest = testRepository.save(test)
+        return testRepository.save(test).awaitSuspending()
+    }
 
-        savedTest.test = "아니야 바꿀꺼"
+    suspend fun getTests(): MutableList<Test>? {
+        return testRepository.findAll()?.awaitSuspending();
+    }
 
-        return testRepository.save(savedTest)
+    suspend fun getTest(id: Long): Test {
+        return testRepository.findById(id).awaitSuspending()
+    }
+
+    suspend fun deleteTest(id: Long) {
+        testRepository.deleteById(id)?.awaitSuspending()
+    }
+
+    suspend fun updateTest(id: Long): Test {
+        val test = Test(
+            "테스트2",
+            id
+        )
+
+        return testRepository.save(test).awaitSuspending()
     }
 }

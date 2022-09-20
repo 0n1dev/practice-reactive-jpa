@@ -17,7 +17,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
@@ -25,11 +24,19 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-debug")
+    implementation("io.smallrye.reactive:mutiny-kotlin:1.6.0")
 
     implementation("io.projectreactor.tools:blockhound:1.0.6.RELEASE")
-    implementation("com.google.auto.service:auto-service:1.0")
 
-    implementation("dev.miku:r2dbc-mysql:0.8.2.RELEASE")
+    /* hibernate reactive에 필요한 MySQL 드라이버 */
+    implementation("io.vertx:vertx-mysql-client:4.3.3")
+
+    /* hibernate reactive core */
+    implementation("org.hibernate.reactive:hibernate-reactive-core:1.1.7.Final")
+
+    /* Entity Meta Class 생성 */
+    implementation("org.hibernate:hibernate-jpamodelgen:6.1.3.Final")
+    implementation("javax.validation:validation-api")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")

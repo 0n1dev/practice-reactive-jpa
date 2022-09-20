@@ -1,15 +1,15 @@
 package com.example.demo
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.relational.core.mapping.Column
-import org.springframework.data.relational.core.mapping.Table
+import javax.persistence.*
 
-@Table(name = "test")
+
+@Entity
+@Table(name="test")
 class Test(
-    @Column("test")
+    @Column(name = "test")
     var test: String,
 
     @Id
-    @Column("id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 )
