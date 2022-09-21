@@ -1,6 +1,8 @@
 package com.example.demo
 
 import org.springframework.web.bind.annotation.*
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("/tests")
@@ -19,7 +21,7 @@ class TestController(
     }
 
     @PostMapping
-    suspend fun createTest(): Test {
+    suspend fun createTest(): TestResponse {
         return testService.createTest()
     }
 
