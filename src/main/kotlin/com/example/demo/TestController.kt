@@ -14,12 +14,12 @@ class TestController(
     }
 
     @GetMapping("/{id}")
-    suspend fun getTest(@PathVariable id: Long): Test {
+    suspend fun getTest(@PathVariable id: Long): TestResponse {
         return testService.getTest(id)
     }
 
     @PostMapping
-    suspend fun createTest(): Test {
+    suspend fun createTest(): TestResponse {
         return testService.createTest()
     }
 

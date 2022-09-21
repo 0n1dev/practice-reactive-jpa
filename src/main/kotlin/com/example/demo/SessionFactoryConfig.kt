@@ -1,5 +1,8 @@
 package com.example.demo
 
+import io.smallrye.mutiny.Uni
+import org.hibernate.boot.internal.SessionFactoryOptionsBuilder
+import org.hibernate.reactive.mutiny.Mutiny.Session
 import org.hibernate.reactive.mutiny.Mutiny.SessionFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,5 +19,10 @@ class SessionFactoryConfig {
     fun sessionFactory(): SessionFactory {
         return Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME)
             .unwrap(SessionFactory::class.java)
+    }
+
+    @Bean
+    fun session(): Uni<Session> {
+        return sessionFactory().openSession()
     }
 }

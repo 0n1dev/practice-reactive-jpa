@@ -1,11 +1,8 @@
 package com.example.demo
 
 import io.smallrye.mutiny.Uni
-import org.hibernate.reactive.mutiny.Mutiny.Session
-import org.hibernate.reactive.mutiny.Mutiny.SessionFactory
+import org.hibernate.reactive.mutiny.Mutiny.*
 import org.springframework.stereotype.Repository
-import java.util.function.Function
-import java.util.function.Supplier
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaDelete
 import javax.persistence.criteria.CriteriaQuery
@@ -13,7 +10,8 @@ import javax.persistence.criteria.Root
 
 @Repository
 class TestRepository(
-    private val sessionFactory: SessionFactory
+    private val sessionFactory: SessionFactory,
+    private val session: Uni<Session>
 ) {
 
     fun save(test: Test): Uni<Test> {
@@ -42,8 +40,9 @@ class TestRepository(
     }
 
     fun findById(id: Long): Uni<Test> {
-        return sessionFactory.withSession { session ->
-            session.find(Test::class.java, id)
+
+        return session.chain { s ->
+            s.find(Test::class.java, id)
                 .onItem()
                 .ifNull()
                 .failWith { RuntimeException() }

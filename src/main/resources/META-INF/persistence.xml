@@ -5,6 +5,7 @@
     <persistence-unit name="app">
         <provider>org.hibernate.reactive.provider.ReactivePersistenceProvider</provider>
         <class>com.example.demo.Test</class>
+        <class>com.example.demo.SubTest</class>
         <properties>
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:mysql://localhost:3306/test"/>
